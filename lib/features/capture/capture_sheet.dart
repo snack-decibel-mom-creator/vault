@@ -9,7 +9,10 @@ Future<void> showCaptureSheet(BuildContext context, VaultRepository repo, {ItemT
 }
 class _CaptureSheet extends StatefulWidget { final VaultRepository repo; final ItemType initial; const _CaptureSheet({required this.repo,required this.initial}); @override State<_CaptureSheet> createState()=>_CaptureSheetState(); }
 class _CaptureSheetState extends State<_CaptureSheet> {
-  late ItemType type=widget.initial; final title=TextEditingController(); final body=TextEditingController(); final url=TextEditingController();
+  late ItemType type;
+  final title=TextEditingController(); final body=TextEditingController(); final url=TextEditingController();
+  @override void initState() { super.initState(); type = widget.initial; }
+  @override void dispose() { title.dispose(); body.dispose(); url.dispose(); super.dispose(); }
   @override Widget build(BuildContext context)=>SafeArea(child:Container(padding:EdgeInsets.only(left:22,right:22,top:20,bottom:20+MediaQuery.of(context).viewInsets.bottom),decoration:const BoxDecoration(color:VaultColors.surface,borderRadius:BorderRadius.vertical(top:Radius.circular(22))),child:SingleChildScrollView(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
     Row(children:[const Text('Quick capture',style:TextStyle(fontSize:20,fontWeight:FontWeight.w700)),const Spacer(),IconButton(onPressed:()=>Navigator.pop(context),icon:const Icon(Icons.close))]),const SizedBox(height:16),
     SegmentedButton<ItemType>(segments:const [ButtonSegment(value:ItemType.thought,label:Text('Thought'),icon:Icon(Icons.bolt_rounded)),ButtonSegment(value:ItemType.content,label:Text('URL'),icon:Icon(Icons.link_rounded)),ButtonSegment(value:ItemType.tool,label:Text('Tool'),icon:Icon(Icons.build_outlined)),ButtonSegment(value:ItemType.conversation,label:Text('AI chat'),icon:Icon(Icons.forum_outlined))],selected:{type},onSelectionChanged:(x)=>setState(()=>type=x.first)),const SizedBox(height:16),
