@@ -14,7 +14,7 @@ class _AuthPageState extends State<AuthPage> {
     try {
       final result=signup ? await supabase.auth.signUp(email:email.text.trim(),password:password.text) : await supabase.auth.signInWithPassword(email:email.text.trim(),password:password.text);
       if(!mounted)return;
-      if(result.session!=null) Navigator.of(context).pop(true); else if(signup) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content:Text('Check your email to confirm your account.')));
+      if(result.session==null && signup) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content:Text('Check your email to confirm your account.')));
     } on AuthException catch(e){if(mounted)ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(e.message)));}
     finally{if(mounted)setState(()=>loading=false);}
   }
