@@ -16,7 +16,7 @@ class DashboardPage extends ConsumerWidget {
         _Shortcut('⌘ K', 'Search'), const SizedBox(width:8), FilledButton.icon(onPressed:()=>onCapture(ItemType.thought), icon:const Icon(Icons.add_rounded,size:18), label:const Text('Capture')),
       ]))),
       SliverPadding(padding: const EdgeInsets.symmetric(horizontal:28), sliver: SliverToBoxAdapter(child: Row(children: [_Metric(label:'THOUGHTS',value:'12',delta:'+3 this week'),_Metric(label:'SAVED',value:'38',delta:'7 unread'),_Metric(label:'TOOLS',value:'16',delta:'4 favorites'),_Metric(label:'AI CHATS',value:'24',delta:'5 this week')]))),
-      SliverToBoxAdapter(child: Padding(padding:const EdgeInsets.fromLTRB(28,28,28,14), child: Row(children:[const Text('Recent',style:TextStyle(fontSize:16,fontWeight:FontWeight.w650)),const Spacer(),Text('View all  →',style:TextStyle(color:VaultColors.muted,fontSize:12))]))),
+      SliverToBoxAdapter(child: Padding(padding:const EdgeInsets.fromLTRB(28,28,28,14), child: Row(children:[const Text('Recent',style:TextStyle(fontSize:16,fontWeight:FontWeight.w600)),const Spacer(),Text('View all  →',style:TextStyle(color:VaultColors.muted,fontSize:12))]))),
       SliverPadding(padding:const EdgeInsets.fromLTRB(28,0,28,28), sliver: SliverGrid(delegate:SliverChildBuilderDelegate((c,i)=>VaultCard(item:items[i],onFavorite:()=>ref.read(vaultRepositoryProvider).toggleFavorite(items[i])),childCount:items.length > 6 ? 6 : items.length),gridDelegate:const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent:360,mainAxisExtent:210,crossAxisSpacing:12,mainAxisSpacing:12))),
     ]);
   }
