@@ -1,24 +1,37 @@
 # Vault — Personal AI Knowledge Dashboard
 
-A polished Flutter app concept for collecting thoughts, saved content, useful tools, AI conversations, and collections in one place.
+A polished Flutter app for collecting thoughts, saved content, useful tools, AI conversations, and collections in one place.
 
 ## Stack
-- Flutter + Material 3 with a custom near-black visual system
+- Flutter + Material 3 with a premium near-black visual system
 - Supabase Auth + Postgres + Row Level Security
 - Riverpod for state
-- GoRouter for protected navigation
+- Supabase Edge Functions for private AI calls
 - Geist / Geist Mono typography with a clean fallback
 
-## Run
-1. Install Flutter 3.24+.
-2. From this directory run `flutter create .` to generate the native platform folders.
-3. Run `flutter pub get`.
-4. Create a Supabase project and apply `supabase/schema.sql` in the SQL editor.
-5. Configure your Supabase URL and anon key.
-6. Run `flutter run`.
+## Supabase
+The production Supabase project is configured in `ap-south-1` and contains the Vault schema with profiles, items, tags, collections, relationships, indexes, triggers, and RLS policies.
 
-## Demo mode
-The app starts with local demo data until Supabase is configured. Demo content is clearly marked and can be replaced by real records through the capture and CRUD flows.
+The Flutter app uses Supabase when configured and keeps local demo data as a development fallback.
+
+Run with:
+
+```bash
+flutter pub get
+flutter run --dart-define=SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co --dart-define=SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
+```
+
+Use only the publishable key in the Flutter client. Never put a Supabase secret/service-role key in the app.
+
+## AI
+Vault AI runs through the `vault-ai` Supabase Edge Function so the OpenAI API key never ships inside the Flutter app.
+
+Recommended setup:
+- `gpt-5.6-luna` for default capture summaries, tagging, extraction, and everyday Q&A
+- `gpt-5.6-terra` for deeper synthesis, difficult reasoning, and high-value research
+- `gpt-5.6-sol` only for premium/maximum-quality tasks where the extra cost is justified
+
+Set `OPENAI_API_KEY` as a Supabase Edge Function secret before using AI. The function requires an authenticated Supabase session.
 
 ## Product structure
 - Dashboard: overview, recent activity, quick capture
@@ -32,7 +45,7 @@ The app starts with local demo data until Supabase is configured. Demo content i
 - Settings: profile and session controls
 
 ## Backend
-`supabase/schema.sql` contains the normalized schema, triggers, indexes, RLS policies, and a small demo seed function. The schema keeps user-owned data isolated by `auth.uid()`.
+`supabase/schema.sql` documents the database structure, while the live project is managed through Supabase migrations. RLS isolates user-owned data by `auth.uid()`.
 
 ## GitHub
 This repository is intended to be opened in Codex/Android Studio for Flutter emulator testing and iteration.
