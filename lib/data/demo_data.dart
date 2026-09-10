@@ -1,0 +1,9 @@
+import '../models/vault_item.dart';
+
+final demoItems = <VaultItem>[
+  VaultItem(id:'t1', type:ItemType.thought, title:'Build before you optimize', body:'The best ideas become clear after the first working version. Keep Vault frictionless enough that capture happens before the thought disappears.', source:'Personal note', createdAt:DateTime.now().subtract(const Duration(minutes:18)), tags:['product','mindset'], pinned:true),
+  VaultItem(id:'c1', type:ItemType.content, title:'The craft of shipping small', description:'A practical breakdown of reducing product surface area.', url:'https://youtube.com/', source:'YouTube', createdAt:DateTime.now().subtract(const Duration(hours:2)), tags:['product','engineering'], contentSource:ContentSource.youtube),
+  VaultItem(id:'a1', type:ItemType.conversation, title:'Designing a second brain with AI', body:'Discussed how AI can turn a personal knowledge base into an active thinking system rather than a passive archive.', source:'ChatGPT', createdAt:DateTime.now().subtract(const Duration(hours:5)), tags:['ai','knowledge'], provider:AIProvider.chatgpt),
+  VaultItem(id:'tool1', type:ItemType.tool, title:'Raycast', description:'Fast launcher and command center for the desktop.', body:'Useful for quick actions, snippets, window management, and lightweight automation.', url:'https://raycast.com', source:'Tested', createdAt:DateTime.now().subtract(const Duration(days:1)), tags:['productivity','automation'], rating:5, favorite:true),
+  VaultItem(id:'c2', type:ItemType.content, title:'An interface that feels alive', description:'Micro-interactions that communicate state without visual noise.', url:'https://x.com/', source:'X', createdAt:DateTime.now().subtract(const Duration(days:2)), tags:['design','motion'], contentSource:ContentSource.x, favorite:true),
+];
