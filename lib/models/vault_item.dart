@@ -1,6 +1,6 @@
 enum ItemType { thought, content, tool, conversation }
 
-enum ContentSource { youtube, instagram, x, url }
+enum ContentSource { youtube, instagram, x, url, manual }
 
 enum AIProvider { chatgpt, grok, gemini, other }
 
@@ -12,6 +12,7 @@ class VaultItem {
   final String body;
   final String url;
   final String source;
+  final String? thumbnail;
   final DateTime createdAt;
   final List<String> tags;
   final bool favorite;
@@ -29,6 +30,7 @@ class VaultItem {
     this.body = '',
     this.url = '',
     this.source = '',
+    this.thumbnail,
     required this.createdAt,
     this.tags = const [],
     this.favorite = false,
@@ -40,9 +42,21 @@ class VaultItem {
   });
 
   VaultItem copyWith({bool? favorite, bool? archived, bool? pinned}) => VaultItem(
-    id: id, type: type, title: title, description: description, body: body, url: url,
-    source: source, createdAt: createdAt, tags: tags, favorite: favorite ?? this.favorite,
-    archived: archived ?? this.archived, pinned: pinned ?? this.pinned,
-    contentSource: contentSource, provider: provider, rating: rating,
+    id: id,
+    type: type,
+    title: title,
+    description: description,
+    body: body,
+    url: url,
+    source: source,
+    thumbnail: thumbnail,
+    createdAt: createdAt,
+    tags: tags,
+    favorite: favorite ?? this.favorite,
+    archived: archived ?? this.archived,
+    pinned: pinned ?? this.pinned,
+    contentSource: contentSource,
+    provider: provider,
+    rating: rating,
   );
 }
